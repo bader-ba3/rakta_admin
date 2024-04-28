@@ -125,7 +125,7 @@ class BusesScreen extends StatelessWidget {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Center(
                                                 child: Text(
-                                              "Working Car",
+                                              "Working Bus",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(fontSize: 16),
                                             )),
@@ -148,7 +148,7 @@ class BusesScreen extends StatelessWidget {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Center(
                                                 child: Text(
-                                              "Stopped Car",
+                                              "Stopped Bus",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(fontSize: 16),
                                             )),
@@ -171,7 +171,7 @@ class BusesScreen extends StatelessWidget {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Center(
                                                 child: Text(
-                                              "maintenance Car",
+                                              "maintenance Bus",
                                               textAlign: TextAlign.center,
                                               style: TextStyle(fontSize: 16),
                                             )),
