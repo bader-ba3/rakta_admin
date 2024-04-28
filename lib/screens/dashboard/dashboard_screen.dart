@@ -1,6 +1,6 @@
-import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/components/date_table.dart';
-import 'package:admin/screens/dashboard/components/my_fields.dart';
+import 'package:rakta_admin/responsive.dart';
+import 'package:rakta_admin/screens/dashboard/components/date_table.dart';
+import 'package:rakta_admin/screens/dashboard/components/my_fields.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';

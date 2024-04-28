@@ -32,7 +32,7 @@ final Color color;
           SizedBox(
             height: 40,
             width: 40,
-            child: SvgPicture.asset(svgSrc,color: color,),
+            child: Image.asset(svgSrc,color: color,),
           ),
           Expanded(
             child: Padding(

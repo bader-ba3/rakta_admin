@@ -1,61 +1,56 @@
+import 'package:rakta_admin/controller/home_controller.dart';
+import 'package:rakta_admin/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({
+  SideMenu({
     Key? key,
   }) : super(key: key);
+  final text = ["Dashboard", "Users", "All Drivers", "All Cars", "Taxi", "Buss", "Ferry", "Notification", "Reports", "Maps", "AI", "customer Happiness", "Account Management", "Settings"];
+  final image = [
+    "assets/icons/menu_dashboard.svg",
+    "assets/icons/menu_profile.svg",
+    "assets/icons/menu_profile.svg",
+    "assets/icons/menu_task.svg",
+    "assets/icons/car2.svg",
+    "assets/icons/bus2.svg",
+    "assets/icons/boat2.svg",
+    "assets/icons/menu_notification.svg",
+    "assets/icons/menu_doc.svg",
+    "assets/icons/menu_task.svg",
+    "assets/icons/menu_tran.svg",
+    "assets/icons/menu_profile.svg",
+    "assets/icons/menu_setting.svg",
+    "assets/icons/menu_setting.svg",
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        children: [
-          DrawerHeader(
-            child: Image.asset("assets/images/logo.png"),
-          ),
-          DrawerListTile(
-            title: "Dashboard",
-            svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Transaction",
-            svgSrc: "assets/icons/menu_tran.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Trips",
-            svgSrc: "assets/icons/menu_task.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Users",
-            svgSrc: "assets/icons/menu_doc.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Store",
-            svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Notification",
-            svgSrc: "assets/icons/menu_notification.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Drivers",
-            svgSrc: "assets/icons/menu_profile.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Settings",
-            svgSrc: "assets/icons/menu_setting.svg",
-            press: () {},
-          ),
-        ],
-      ),
+      child: GetBuilder<HomeController>(builder: (controller) {
+        return ListView(
+          children: [
+            DrawerHeader(
+              child: Image.asset(
+                "assets/RAKTA-LOGO.png",
+              ),
+            ),
+            ...List.generate(
+              text.length,
+              (index) => DrawerListTile(
+                index: index,
+                title: text[index],
+                svgSrc: image[index],
+                press: () {
+                  controller.changeIndex(index);
+                },
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }
@@ -63,34 +58,49 @@ class SideMenu extends StatelessWidget {
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
     Key? key,
-    // For selecting those three line once press "Command+D"
     required this.title,
+    required this.index,
     required this.svgSrc,
     required this.press,
   }) : super(key: key);
 
   final String title, svgSrc;
+  final int index;
   final VoidCallback press;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: press,
-      horizontalTitleGap: 0.0,
-      leading: SvgPicture.asset(
-        svgSrc,
-        colorFilter: ColorFilter.mode(Colors.white54, BlendMode.srcIn),
-        height: 24,
-      ),
-      title: Row(
-        children: [
-          SizedBox(width: 10,),
-          Text(
-            title,
-            style: TextStyle(color: Colors.white54),
+    return GetBuilder<HomeController>(builder: (controller) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(color: controller.menuIndex == index ? Colors.blueAccent : Colors.transparent, borderRadius: BorderRadius.circular(10)),
+          child: ListTile(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            onTap: press,
+            horizontalTitleGap: 0.0,
+            leading: SizedBox(
+              width: 30,
+              child: SvgPicture.asset(
+                svgSrc,
+                colorFilter: ColorFilter.mode(Colors.white54, BlendMode.srcIn),
+                height: 24,
+              ),
+            ),
+            title: Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  title,
+                  style: TextStyle(color: Colors.white54),
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
-    );
+        ),
+      );
+    });
   }
 }

@@ -1,5 +1,5 @@
-import 'package:admin/chart/Liner_Chart.dart';
-import 'package:admin/models/MyFiles.dart';
+import 'package:rakta_admin/chart/Liner_Chart.dart';
+import 'package:rakta_admin/models/MyFiles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
