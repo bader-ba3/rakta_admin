@@ -100,44 +100,42 @@ class CustomerHappinessScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text("Last User Review",style: TextStyle(fontSize: 22),),
             ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(color: Colors.black12,borderRadius: BorderRadius.circular(15)),
-                child: ListView.builder(
-                  itemCount: review.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    ({String name ,String review ,String type ,  }) model = review[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Wrap(
-                      direction: Axis.vertical,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(radius: 15,child: Icon(Icons.person),),
-                            SizedBox(width: 5,),
-                            Text(model.name),
-                            SizedBox(width: 10,),
-                            if(model.type=="ok")
-                            Icon(Icons.thumb_up,color: Colors.green,)
-                            else
-                              Icon(Icons.thumb_down_alt,color: Colors.red,)
-                          ],
-                        ),
-                        SizedBox(height: 5,),
-                        Row(
-                          children: [
-                            SizedBox(width: 20,),
-                            Text(model.review),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                },),
-              ),
+            Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(color: Colors.black12,borderRadius: BorderRadius.circular(15)),
+              child: ListView.builder(
+                itemCount: review.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  ({String name ,String review ,String type ,  }) model = review[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Wrap(
+                    direction: Axis.vertical,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(radius: 15,child: Icon(Icons.person),),
+                          SizedBox(width: 5,),
+                          Text(model.name),
+                          SizedBox(width: 10,),
+                          if(model.type=="ok")
+                          Icon(Icons.thumb_up,color: Colors.green,)
+                          else
+                            Icon(Icons.thumb_down_alt,color: Colors.red,)
+                        ],
+                      ),
+                      SizedBox(height: 5,),
+                      Row(
+                        children: [
+                          SizedBox(width: 20,),
+                          Text(model.review),
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              },),
             )
           ],
         ),

@@ -331,7 +331,7 @@ class UsersScreen extends StatelessWidget {
                               label: Text("Status"),
                             ),
                             DataColumn(
-                              label: Text("sex"),
+                              label: Text("Gender"),
                             ),
                             DataColumn(
                               label: Text("Details"),

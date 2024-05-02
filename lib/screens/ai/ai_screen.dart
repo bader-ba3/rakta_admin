@@ -16,7 +16,7 @@ class AiScreen extends StatefulWidget {
 class _AiScreenState extends State<AiScreen> {
   PageController pageController = PageController();
 
-  List text = ["Customer Happiness","Efficiency","Drivers' response speed to users ","oil consumption"];
+  List text = ["Customer Happiness","Efficiency","Driver's response speed to users ","oil consumption"];
 
   @override
   Widget build(BuildContext context) {

@@ -25,30 +25,34 @@ class SideMenu extends StatelessWidget {
     "assets/icons/menu_setting.svg",
     "assets/icons/menu_setting.svg",
   ];
-
+  ScrollController scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: GetBuilder<HomeController>(builder: (controller) {
-        return ListView(
-          children: [
-            DrawerHeader(
-              child: Image.asset(
-                "assets/RAKTA-LOGO.png",
+        return ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+          child: ListView(
+            controller: scrollController,
+            children: [
+              DrawerHeader(
+                child: Image.asset(
+                  "assets/RAKTA-LOGO.png",
+                ),
               ),
-            ),
-            ...List.generate(
-              text.length,
-              (index) => DrawerListTile(
-                index: index,
-                title: text[index],
-                svgSrc: image[index],
-                press: () {
-                  controller.changeIndex(index);
-                },
+              ...List.generate(
+                text.length,
+                (index) => DrawerListTile(
+                  index: index,
+                  title: text[index],
+                  svgSrc: image[index],
+                  press: () {
+                    controller.changeIndex(index);
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       }),
     );
@@ -72,11 +76,10 @@ class DrawerListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (controller) {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(0.0),
         child: Container(
           decoration: BoxDecoration(color: controller.menuIndex == index ? Colors.blueAccent : Colors.transparent, borderRadius: BorderRadius.circular(10)),
           child: ListTile(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             onTap: press,
             horizontalTitleGap: 0.0,
             leading: SizedBox(

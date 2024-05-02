@@ -27,12 +27,12 @@ class _Chart2State extends State<Chart2> {
         BarChartRodData(
           toY: value,
           color: color,
-          width: 6,
+          width: 13,
         ),
         BarChartRodData(
           toY: shadowValue,
           color: widget.shadowColor,
-          width: 6,
+          width: 13,
         ),
       ],
       showingTooltipIndicators: touchedGroupIndex == x ? [0] : [],
@@ -46,7 +46,7 @@ class _Chart2State extends State<Chart2> {
     return Padding(
       padding: const EdgeInsets.all(50),
       child: AspectRatio(
-        aspectRatio: 1.4,
+        aspectRatio: 1.6,
         child: BarChart(
           BarChartData(
             alignment: BarChartAlignment.spaceBetween,
@@ -101,6 +101,7 @@ class _Chart2State extends State<Chart2> {
                 strokeWidth: 1,
               ),
             ),
+
             barGroups: widget.dataList.asMap().entries.map((e) {
               final index = e.key;
               final data = e.value;
@@ -187,19 +188,8 @@ class _IconWidgetState extends AnimatedWidgetBaseState<_IconWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final rotation = math.pi * 4 * _rotationTween!.evaluate(animation);
-    final scale = 1 + _rotationTween!.evaluate(animation) * 0.5;
-    return Transform(
-      transform: Matrix4.rotationZ(rotation).scaled(scale, scale),
-      origin: const Offset(14, 14),
-      child: Row(
-        children: List.generate((widget.index-5).abs(), (index) =>  Icon(Icons.star,color: Colors.amber,)),
-      ),
-      // child: Icon(
-      //   widget.index ==1||widget.index ==2?Icons.tag_faces_rounded:Icons.face,
-      //   color: widget.color,
-      //   size: 28,
-      // ),
+    return Row(
+      children: List.generate((widget.index-5).abs(), (index) =>  Icon(Icons.star,color: Colors.amber,)),
     );
   }
 

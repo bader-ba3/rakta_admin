@@ -1,4 +1,8 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:rakta_admin/screens/maps/polyline_services.dart';
 import 'package:rakta_admin/screens/maps/services.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +21,20 @@ class HomeViewModel extends GetxController {
 
   Set<Polyline> get polyLines => _polyLines;
 
+  Map firebaseMarker = {};
 
 
 
-
-
+  HomeViewModel(){
+    FirebaseFirestore.instance.collection('dashboardMap').doc('0').snapshots().listen((event) {
+      markers.removeWhere((key, _value) => key.value.contains("marker"));
+      firebaseMarker.clear();
+      (event.data()!["markers"] as Map).forEach((key, value) {
+        setMarkerClick(LatLng(double.parse(value['lat']),double.parse(value['lng'])), value['image'], value['id'].toString(),"0");
+        update();
+      });
+    });
+  }
 
 
   void setMarker(LatLng location, String path, String uID,String bearing,{int? size}) {
@@ -34,11 +47,111 @@ class HomeViewModel extends GetxController {
         icon: BitmapDescriptor.fromBytes(value),
         position: location,
         rotation: double.parse(bearing),
-        onTap: () {},
+        onTap: () { },
       );
       markers[MarkerId(uID)]= newMarker;
       update();
     });
+  }
+  void setMarkerClick(LatLng location, String path, String uID,String bearing) {
+    Utils()
+        .getBytesFromAsset(path: 'assets/$path.png', width: 25)
+        .then((value) {
+      Marker newMarker = Marker(
+        flat: true,
+        markerId: MarkerId(uID),
+        icon: BitmapDescriptor.fromBytes(value),
+        position: location,
+        rotation: double.parse(bearing),
+        onTap: () { showDeleteDialog(uID);},
+      );
+      markers[MarkerId(uID)]= newMarker;
+      Map a = {
+        "lat":location.latitude.toString(),
+        "lng":location.longitude.toString(),
+        "id":uID.toString(),
+        "image":path,
+      };
+      firebaseMarker[uID] = a;
+      update();
+    });
+  }
+  
+  void setMapMarker(LatLng location, String path, String uID,String bearing) {
+    Utils()
+        .getBytesFromAsset(path: 'assets/$path.png', width: 25)
+        .then((value) {
+      Marker newMarker = Marker(
+        flat: true,
+        markerId: MarkerId("marker"+uID),
+        icon: BitmapDescriptor.fromBytes(value),
+        position: location,
+        rotation: double.parse(bearing),
+        onTap: () {
+          showDeleteDialog("marker"+uID);
+        },
+      );
+      markers[MarkerId("marker"+uID)]= newMarker;
+      update();
+    });
+    Map a = {
+      "lat":location.latitude.toString(),
+      "lng":location.longitude.toString(),
+      "id":"marker"+uID.toString(),
+      "image":path,
+    };
+    firebaseMarker["marker"+uID] = a;
+    print(firebaseMarker);
+    FirebaseFirestore.instance.collection('dashboardMap').doc('0').set({"markers": firebaseMarker},SetOptions(merge: true));
+
+  }
+  bool mapEnabled=true;
+  showDeleteDialog(String uId){
+    Get.defaultDialog(
+      title: "Alert",
+      middleText: "You Will Delete THis Marker",
+      actions: [
+        MouseRegion(
+          onEnter: (PointerEnterEvent event) {
+            mapEnabled=false;
+            update();
+          },
+          onExit: (PointerExitEvent event) {
+            mapEnabled=true;
+            update();
+          },
+          child: Column(
+            children: [
+              InkWell(
+                onTap: (){
+                  firebaseMarker.remove(uId);
+                  markers.removeWhere((key, value) => key.value.contains("marker"));
+                  FirebaseFirestore.instance.collection('dashboardMap').doc('0').update({"markers": firebaseMarker});
+                  Get.back();
+                },
+                child: Container(
+                  height: 50,
+                  width: 200,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.red)),
+                  child: Center(child: Text("Delete",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.red),)),
+                ),
+              ),
+                  SizedBox(height: 10,),
+              InkWell(
+                onTap: (){Get.back();
+                },
+                child: Container(
+                  height: 50,
+                  width: 200,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.black)),
+                  child: Center(child: Text("cancle")),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ]
+    );
   }
   List<LatLng> ridesPloy =[
     LatLng( 25.7912747,-304.0482551),
