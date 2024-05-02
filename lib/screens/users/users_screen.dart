@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'user_details.dart';
 
 class UsersScreen extends StatelessWidget {
+   UsersScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
