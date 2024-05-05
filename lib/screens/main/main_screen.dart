@@ -28,7 +28,7 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin{
   final text = ["Dashboard", "Users", "All Drivers", "All Cars", "Taxi", "Buss", "Ferry", "Notification", "Reports", "Maps", "AI", "customer Happiness", "Account Management", "Settings"];
   final image = [
     "assets/icons/menu_dashboard.svg",
@@ -46,6 +46,16 @@ class _MainScreenState extends State<MainScreen> {
     "assets/icons/menu_setting.svg",
     "assets/icons/menu_setting.svg",
   ];
+  late TabController tabController ;
+  @override
+  void initState() {
+   tabController =  TabController(length: text.length, vsync: this);
+   tabController.addListener(() {
+     setState(() {});
+   });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -58,6 +68,7 @@ class _MainScreenState extends State<MainScreen> {
               height: MediaQuery.sizeOf(context).height,
               width: MediaQuery.sizeOf(context).width,
               child: TabContainer(
+                controller: tabController,
                 tabEdge: TabEdge.left,
                 tabsEnd: 0.95,
                 tabsStart: 0.02,
@@ -85,26 +96,46 @@ class _MainScreenState extends State<MainScreen> {
                     title: text[index],
                     svgSrc: image[index],
                     press: () {
-                      controller.changeIndex(index);
+                      // controller.changeIndex(index);
+                      setState(() {});
                     },
                   ),
                 ),
-                children: [
-                  DashboardScreen(),
-                  UsersScreen(),
-                  DriverScreen(),
-                  CarsScreen(),
-                  TaxiScreen(),
-                  BusesScreen(),
-                  FerryScreen(),
-                  NotificationScreen(),
-                  ReportsScreen(),
-                  MapsScreen(),
-                  AiScreen(),
-                  CustomerHappinessScreen(),
-                  AccountManagementScreen(),
-                  SettingsScreen(),
-                ],
+                // children: [
+                //   DashboardScreen(),
+                //   UsersScreen(),
+                //   DriverScreen(),
+                //   CarsScreen(),
+                //   TaxiScreen(),
+                //   BusesScreen(),
+                //   FerryScreen(),
+                //   NotificationScreen(),
+                //   ReportsScreen(),
+                //   MapsScreen(),
+                //   AiScreen(),
+                //   CustomerHappinessScreen(),
+                //   AccountManagementScreen(),
+                //   SettingsScreen(),
+                // ],
+                child: IndexedStack(
+                  index: tabController.index,
+                  children: [
+                    DashboardScreen(),
+                    UsersScreen(),
+                    DriverScreen(),
+                    CarsScreen(),
+                    TaxiScreen(),
+                    BusesScreen(),
+                    FerryScreen(),
+                    NotificationScreen(),
+                    ReportsScreen(),
+                    MapsScreen(),
+                    AiScreen(),
+                    CustomerHappinessScreen(),
+                    AccountManagementScreen(),
+                    SettingsScreen(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -171,6 +202,7 @@ class DrawerListTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 7),
       child: ListTile(
+        // onTap: press,
         horizontalTitleGap: 0.0,
         leading: SizedBox(
           width: 30,
