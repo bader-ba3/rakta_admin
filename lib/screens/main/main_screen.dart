@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rakta_admin/constants.dart';
 import 'package:rakta_admin/controller/home_controller.dart';
@@ -67,75 +68,91 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
             child: SizedBox(
               height: MediaQuery.sizeOf(context).height,
               width: MediaQuery.sizeOf(context).width,
-              child: TabContainer(
-                controller: tabController,
-                tabEdge: TabEdge.left,
-                tabsEnd: 0.95,
-                tabsStart: 0.02,
-                tabMaxLength: 60,
-                tabExtent: 280,
-                borderRadius: BorderRadius.circular(10),
-                tabBorderRadius: BorderRadius.circular(20),
-                childPadding: const EdgeInsets.all(10.0),
-                selectedTextStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.0,
-                ),
-                unselectedTextStyle: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 13.0,
-                ),
-                colors:  List.generate(
-                    text.length,
-                      (index) => bgColor
-                ),
-                tabs: List.generate(
-                  text.length,
-                      (index) => DrawerListTile(
-                    index: index,
-                    title: text[index],
-                    svgSrc: image[index],
-                    press: () {
-                      // controller.changeIndex(index);
-                      setState(() {});
-                    },
+              child: Stack(
+                children: [
+
+                  TabContainer(
+                    controller: tabController,
+                    tabEdge: TabEdge.left,
+                    tabsEnd: 0.95,
+                    tabsStart: 0.125,
+                    tabMaxLength: 60,
+                    tabExtent: 280,
+                    borderRadius: BorderRadius.circular(10),
+                    tabBorderRadius: BorderRadius.circular(20),
+                    childPadding: const EdgeInsets.all(10.0),
+                    selectedTextStyle: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.0,
+                    ),
+                    unselectedTextStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 13.0,
+                    ),
+                    colors:  List.generate(
+                        text.length,
+                          (index) => bgColor
+                    ),
+                    tabs: List.generate(
+                      text.length,
+                          (index) {
+                        return DrawerListTile(
+                          index: index,
+                          title: text[index],
+                          svgSrc: image[index],
+                          press: () {
+                            // controller.changeIndex(index);
+                            setState(() {});
+                          },
+                        );
+                          },
+                    ),
+                    // children: [
+                    //   DashboardScreen(),
+                    //   UsersScreen(),
+                    //   DriverScreen(),
+                    //   CarsScreen(),
+                    //   TaxiScreen(),
+                    //   BusesScreen(),
+                    //   FerryScreen(),
+                    //   NotificationScreen(),
+                    //   ReportsScreen(),
+                    //   MapsScreen(),
+                    //   AiScreen(),
+                    //   CustomerHappinessScreen(),
+                    //   AccountManagementScreen(),
+                    //   SettingsScreen(),
+                    // ],
+                    child: IndexedStack(
+                      index: tabController.index,
+                      children: [
+                        DashboardScreen(),
+                        UsersScreen(),
+                        DriverScreen(),
+                        CarsScreen(),
+                        TaxiScreen(),
+                        BusesScreen(),
+                        FerryScreen(),
+                        NotificationScreen(),
+                        ReportsScreen(),
+                        MapsScreen(),
+                        AiScreen(),
+                        CustomerHappinessScreen(),
+                        AccountManagementScreen(),
+                        SettingsScreen(),
+                      ],
+                    ),
                   ),
-                ),
-                // children: [
-                //   DashboardScreen(),
-                //   UsersScreen(),
-                //   DriverScreen(),
-                //   CarsScreen(),
-                //   TaxiScreen(),
-                //   BusesScreen(),
-                //   FerryScreen(),
-                //   NotificationScreen(),
-                //   ReportsScreen(),
-                //   MapsScreen(),
-                //   AiScreen(),
-                //   CustomerHappinessScreen(),
-                //   AccountManagementScreen(),
-                //   SettingsScreen(),
-                // ],
-                child: IndexedStack(
-                  index: tabController.index,
-                  children: [
-                    DashboardScreen(),
-                    UsersScreen(),
-                    DriverScreen(),
-                    CarsScreen(),
-                    TaxiScreen(),
-                    BusesScreen(),
-                    FerryScreen(),
-                    NotificationScreen(),
-                    ReportsScreen(),
-                    MapsScreen(),
-                    AiScreen(),
-                    CustomerHappinessScreen(),
-                    AccountManagementScreen(),
-                    SettingsScreen(),
-                  ],
-                ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Container(
+                     decoration: BoxDecoration( color: bgColor,borderRadius: BorderRadius.circular(15)),
+                      height: 100,
+                      width: 265,
+                      child: Image.asset("RAKTA-LOGO.png"),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
