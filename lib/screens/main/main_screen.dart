@@ -73,7 +73,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                 tabsEnd: 0.95,
                 tabsStart: 0.02,
                 tabMaxLength: 60,
-                tabExtent: 270,
+                tabExtent: 280,
                 borderRadius: BorderRadius.circular(10),
                 tabBorderRadius: BorderRadius.circular(20),
                 childPadding: const EdgeInsets.all(10.0),
@@ -201,27 +201,31 @@ class DrawerListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 7),
-      child: ListTile(
-        // onTap: press,
-        horizontalTitleGap: 0.0,
-        leading: SizedBox(
-          width: 30,
-          child: SvgPicture.asset(
-            svgSrc,
-            colorFilter: ColorFilter.mode(Colors.white54, BlendMode.srcIn),
-            height: 24,
+      child: ClipRect(
+        clipBehavior: Clip.hardEdge,
+        child: ListTile(
+          // onTap: press,
+          horizontalTitleGap: 0.0,
+          leading: SizedBox(
+            width: 30,
+            child: SvgPicture.asset(
+              svgSrc,
+              colorFilter: ColorFilter.mode(Colors.white54, BlendMode.srcIn),
+              height: 24,
+            ),
           ),
-        ),
-        title: Row(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              title,
-              style: TextStyle(color: Colors.white54),
-            ),
-          ],
+          title: Row(
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                title,
+                overflow: TextOverflow.clip,
+                style: TextStyle(color: Colors.white54),
+              ),
+            ],
+          ),
         ),
       ),
     );
