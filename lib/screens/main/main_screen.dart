@@ -70,7 +70,6 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
               width: MediaQuery.sizeOf(context).width,
               child: Stack(
                 children: [
-
                   TabContainer(
                     controller: tabController,
                     tabEdge: TabEdge.left,
@@ -102,7 +101,9 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                           svgSrc: image[index],
                           press: () {
                             // controller.changeIndex(index);
-                            setState(() {});
+                            setState(() {
+
+                            });
                           },
                         );
                           },
@@ -146,10 +147,10 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Container(
-                     decoration: BoxDecoration( color: bgColor,borderRadius: BorderRadius.circular(15)),
+                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
                       height: 100,
                       width: 265,
-                      child: Image.asset("RAKTA-LOGO.png"),
+                      child: Image.asset("assets/RAKTA-LOGO.png"),
                     ),
                   )
                 ],

@@ -41,6 +41,7 @@ dependencies:
   firebase_core:
   cloud_firestore:
   tab_container:
+  flutter_rating_stars:
 
 dev_dependencies:
   flutter_test:
