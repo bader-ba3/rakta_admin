@@ -102,7 +102,6 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
                           press: () {
                             // controller.changeIndex(index);
                             setState(() {
-
                             });
                           },
                         );
